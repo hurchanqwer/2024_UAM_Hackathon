@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEditor;
 using System;
 using System.Linq;
+using UnityEditor.Build.Content;
 
 public class VectorFieldManager : MonoBehaviour
 {
     public TextAsset[] csvFiles;
 
-        public List<Vector3> positions = new List<Vector3>();
-        public List<Vector3> velocities = new List<Vector3>();
-        public List<float> speeds = new List<float>();
+    public List<Vector3> positions = new List<Vector3>();
+    public List<Vector3> velocities = new List<Vector3>();
+    public List<float> speeds = new List<float>();
     public List<GameObject> createdVector = new List<GameObject>();
     public GameObject arrowPrefab;
     public Material[] arrowMaterial;
     public Transform parent;
-   
-    public bool isVisiable = true;
+
 
     private void Start()
     {
@@ -34,10 +34,10 @@ public class VectorFieldManager : MonoBehaviour
         {
             float speed = Mathf.Round(speeds[j]);
             
-            if (j % 5 == 0)
+            if (j % 2 == 0)
             {
-                createdVector.Add(GameObject.Instantiate(arrowPrefab, positions[j], Quaternion.LookRotation(velocities[j]), parent));
-               
+                createdVector.Add(GameObject.Instantiate(arrowPrefab, positions[j],Quaternion.identity, parent));
+                createdVector[createdVector.Count - 1].transform.GetChild(0).rotation = Quaternion.LookRotation(velocities[j]);
                 // 색상 설정 코드
                 if (speed > 12)
                 {
@@ -58,9 +58,6 @@ public class VectorFieldManager : MonoBehaviour
             }
            
         }
-
-        
-
     }
     void ParseCSV(string csvText)
     {
@@ -113,17 +110,19 @@ public class VectorFieldManager : MonoBehaviour
             Debug.LogWarning("Invalid material index or createdVector is empty.");
         }
     }
-    void VectorVisiable()
+    void VectorVisiableMode()
     {
-        
-        isVisiable = !isVisiable;
-        parent.gameObject.SetActive( isVisiable );
+        SystemManager.Instance.isVisiable = !SystemManager.Instance.isVisiable;
+        for (int i = 0; i < createdVector.Count; i++)
+        {
+            createdVector[i].transform.GetChild(0).gameObject.SetActive(SystemManager.Instance.isVisiable);
+        }
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            VectorVisiable();
+            VectorVisiableMode();
         
         }
     }

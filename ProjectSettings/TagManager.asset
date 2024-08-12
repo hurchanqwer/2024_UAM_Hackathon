@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Arrow
+  - EnableArea
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Vector
+  - Ground
   - Water
   - UI
   - 
