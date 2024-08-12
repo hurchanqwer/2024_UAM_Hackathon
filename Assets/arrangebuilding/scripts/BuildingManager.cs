@@ -26,6 +26,7 @@ public class BuildingManager : MonoBehaviour
             gridToggle = FindObjectOfType<Toggle>();
             gridToggle.isOn = false;
             gridOn = true;
+            gridToggle.isOn=true;
         }
     }
     // Update is called once per frame
