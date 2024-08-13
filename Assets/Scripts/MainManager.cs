@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
         flag = 0;
         octree.gameObject.SetActive(false);
         player.position = new Vector3(705, 889, -670);
-        player.rotation = Quaternion.Euler(0, 0, 0);
+        player.rotation = Quaternion.Euler(0, 180, 0);
         StartCoroutine("DesSet");
     }
 
@@ -114,13 +114,13 @@ public class MainManager : MonoBehaviour
     public void CamFix()
     {
       
-            if (transform.parent == null)
+        if (transform.parent == null)
             {
-                player.transform.parent = UAM;
-                player.transform.localPosition = new Vector3(0, 2, -4);
-                player.transform.localRotation = Quaternion.Euler(13, 0, 0);
-            }
-            else { player.transform.parent = null; }
+                player.parent = CreatedUAM;
+                player.localPosition = new Vector3(0, 2, -4);
+                player.localRotation = Quaternion.Euler(13, 0, 0);
+        }
+         else { player.transform.parent = null; }
        
     }
     
