@@ -11,7 +11,7 @@ public class AirForce : MonoBehaviour
 
     private void Start()
     {
-        VectorFieldManager =GameObject.Find("VectorField").GetComponent<VectorFieldManager>();
+        VectorFieldManager = GameObject.Find("VectorField").GetComponent<VectorFieldManager>();
     }
     private void OnTriggerStay(Collider other)
 

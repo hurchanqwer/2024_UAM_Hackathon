@@ -27,7 +27,7 @@ public class RobotMovementController : MonoBehaviour
     {
         sphereCollider = GetComponent<SphereCollider>();
         rigidbody = GetComponent<Rigidbody>();
-
+        octree =FindObjectOfType<Octree>();
         // LineRenderer 컴포넌트 초기화
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.startWidth = 0.3f; // 시작 지점의 선 너비
@@ -160,27 +160,27 @@ public class RobotMovementController : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
-	{
-		//if (rigidbody != null)
-		//{
-		//	Gizmos.color = Color.blue;
-		//	Vector3 predictedPosition = rigidbody.position + rigidbody.velocity * Time.deltaTime;
-		//	Gizmos.DrawWireSphere(predictedPosition, sphereCollider.radius);
-		//}
+	//private void OnDrawGizmos()
+	//{
+	//	//if (rigidbody != null)
+	//	//{
+	//	//	Gizmos.color = Color.blue;
+	//	//	Vector3 predictedPosition = rigidbody.position + rigidbody.velocity * Time.deltaTime;
+	//	//	Gizmos.DrawWireSphere(predictedPosition, sphereCollider.radius);
+	//	//}
 
-		if (Path != null)
-		{
-			var path = Path;
-			for (int i = 0; i < path.Path.Count-1; i++)
-			{
-				Gizmos.color = Color.yellow;
-				Gizmos.DrawWireSphere(path.Path[i], minReachDistance);
-				Gizmos.color = Color.red;
-				Gizmos.DrawRay(path.Path[i], Vector3.ClampMagnitude(rigidbody.position - path.Path[i], pathPointRadius));
-				Gizmos.DrawWireSphere(path.Path[i],pathPointRadius);
-				Gizmos.DrawLine(path.path[i], path.Path[i+1]);
-			}
-		}
-	}
+	//	if (Path != null)
+	//	{
+	//		var path = Path;
+	//		for (int i = 0; i < path.Path.Count-1; i++)
+	//		{
+	//			Gizmos.color = Color.yellow;
+	//			Gizmos.DrawWireSphere(path.Path[i], minReachDistance);
+	//			Gizmos.color = Color.red;
+	//			Gizmos.DrawRay(path.Path[i], Vector3.ClampMagnitude(rigidbody.position - path.Path[i], pathPointRadius));
+	//			Gizmos.DrawWireSphere(path.Path[i],pathPointRadius);
+	//			Gizmos.DrawLine(path.path[i], path.Path[i+1]);
+	//		}
+	//	}
+	//}
 }

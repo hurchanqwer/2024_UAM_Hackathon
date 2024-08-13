@@ -15,10 +15,10 @@ public class VectorFieldManager : MonoBehaviour
     public List<GameObject> createdVector = new List<GameObject>();
     public GameObject arrowPrefab;
     public Material[] arrowMaterial;
-    public Transform parent;
+    GameObject parent;
+    public bool isInit = true;
 
-
-    private void Start()
+    private void Awake()
     {
         for (int i = 0; i < csvFiles.Length; i++)
         {
@@ -30,34 +30,55 @@ public class VectorFieldManager : MonoBehaviour
         Debug.Log($"Total Velocities: {velocities.Count}");
         Debug.Log($"Total Speeds: {speeds.Count}");
 
-        for (int j = 0; j < positions.Count; j++)
+    }
+    private void OnDisable()
+    {
+        if (parent != null)
         {
-            float speed = Mathf.Round(speeds[j]);
-            
-            if (j % 2 == 0)
+            parent.SetActive(false);
+        }
+    }
+
+
+    public void CreateVectorField()
+    {
+        if (isInit)
+        {
+            parent = Instantiate(new GameObject("VectorParent"), Vector3.zero, Quaternion.identity);
+
+           
+            for (int j = 0; j < positions.Count; j++)
             {
-                createdVector.Add(GameObject.Instantiate(arrowPrefab, positions[j],Quaternion.identity, parent));
-                createdVector[createdVector.Count - 1].transform.GetChild(0).rotation = Quaternion.LookRotation(velocities[j]);
-                // 색상 설정 코드
-                if (speed > 12)
+                float speed = Mathf.Round(speeds[j]);
+
+                if (j % 2 == 0)// 아이고 벡터 수정하던거 잊으면 안된다 찬아
                 {
-                    SetMaterial(3); // arrowMaterial[3] 설정
-                }
-                else if (speed > 8)
-                {
-                    SetMaterial(2); // arrowMaterial[2] 설정
-                }
-                else if (speed > 4)
-                {
-                    SetMaterial(1); // arrowMaterial[1] 설정
-                }
-                else if (speed > 0)
-                {
-                    SetMaterial(0); // arrowMaterial[0] 설정
+                    createdVector.Add(Instantiate(arrowPrefab, positions[j], Quaternion.identity, parent.transform));
+                    createdVector[createdVector.Count - 1].transform.GetChild(0).rotation = Quaternion.LookRotation(velocities[j]);
+                    
+                    // 색상 설정 코드
+                    if (speed > 12)
+                    {
+                        SetMaterial(3); // arrowMaterial[3] 설정
+                    }
+                    else if (speed > 8)
+                    {
+                        SetMaterial(2); // arrowMaterial[2] 설정
+                    }
+                    else if (speed > 4)
+                    {
+                        SetMaterial(1); // arrowMaterial[1] 설정
+                    }
+                    else if (speed > 0)
+                    {
+                        SetMaterial(0); // arrowMaterial[0] 설정
+                    }
                 }
             }
-           
         }
+        else { parent.SetActive(true); }
+
+        isInit = false; 
     }
     void ParseCSV(string csvText)
     {
