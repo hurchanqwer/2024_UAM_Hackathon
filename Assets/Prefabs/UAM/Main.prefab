@@ -80,9 +80,9 @@ MonoBehaviour:
   start: {fileID: 168285765838873296, guid: 026cb9f3a5478410481851ec8c77fce1, type: 3}
   destination: {fileID: 1689658916434100400, guid: d6524e8bb4b6a4b44a169076a1b97ff2, type: 3}
   UAM: {fileID: 6887388626453712763, guid: e8d79bf1c5210414298b972e4bbdf3ce, type: 3}
+  shadow: {fileID: 0}
   current: {fileID: 0}
   vectorFieldManager: {fileID: 6879234780438931152}
-  CreatedUAM: {fileID: 0}
   octree: {fileID: 228112966814357766}
   flag: 0
 --- !u!1 &1512230200116004369
@@ -354,8 +354,17 @@ LineRenderer:
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1301,8 +1310,17 @@ LineRenderer:
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

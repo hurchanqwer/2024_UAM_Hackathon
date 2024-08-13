@@ -10,12 +10,12 @@ public class RobotRotationController : MonoBehaviour
 	[SerializeField] private bool physicsRotation;
 	[SerializeField, Header("Animated Rotation")] public float rotationEasing = 1f;
 
-	private new Rigidbody rigidbody;
+	public Rigidbody rb;
 	private RobotMovementController movementController;
 
 	void Start()
 	{
-		rigidbody = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();
 		movementController = GetComponent<RobotMovementController>();
 	}
 
@@ -23,7 +23,7 @@ public class RobotRotationController : MonoBehaviour
 	{
 		if(!physicsRotation)
 		{
-			rigidbody.MoveRotation(Quaternion.Lerp(rigidbody.rotation, Quaternion.LookRotation(LookAtDir, Vector3.up), Time.deltaTime * rotationEasing));
+			rb.MoveRotation(Quaternion.Lerp(rb.rotation, Quaternion.LookRotation(LookAtDir, Vector3.up), Time.deltaTime * rotationEasing));
 		}
 	}
 
@@ -31,9 +31,9 @@ public class RobotRotationController : MonoBehaviour
 	{
 		if (physicsRotation)
 		{
-			Vector3 angularVelocityError = rigidbody.angularVelocity * -1f;
+			Vector3 angularVelocityError = rb.angularVelocity * -1f;
 			Vector3 angularVelocityCorrection = angularVelocityController.Update(angularVelocityError, Time.deltaTime);
-			rigidbody.AddTorque(angularVelocityCorrection, ForceMode.Acceleration);
+			rb.AddTorque(angularVelocityCorrection, ForceMode.Acceleration);
 
 			//forward heading correction
 			Vector3 desiredHeading = LookAtDir;
@@ -42,7 +42,7 @@ public class RobotRotationController : MonoBehaviour
 			Vector3 headingCorrection = headingController.Update(headingError, Time.deltaTime);
 			headingCorrection.x = 0;
 			headingCorrection.z = 0;
-			rigidbody.AddTorque(headingCorrection, ForceMode.Acceleration);
+			rb.AddTorque(headingCorrection, ForceMode.Acceleration);
 
 			//up heading correction
 			desiredHeading = Vector3.up - transform.up;
@@ -51,7 +51,7 @@ public class RobotRotationController : MonoBehaviour
 			headingCorrection = headingController.Update(headingError, Time.deltaTime);
             headingCorrection.x = 0;
             headingCorrection.z = 0;
-            rigidbody.AddTorque(headingCorrection, ForceMode.Acceleration);
+            rb.AddTorque(headingCorrection, ForceMode.Acceleration);
 		}
 		
 	}
@@ -62,9 +62,9 @@ public class RobotRotationController : MonoBehaviour
 		{
 			if (movementController.HasTarget)
 			{
-				return movementController.CurrentTargetPosition - rigidbody.position;
+				return movementController.CurrentTargetPosition - rb.position;
 			}
-			return playerHead.position - rigidbody.position;
+			return playerHead.position - rb.position;
 		}
 	}
 

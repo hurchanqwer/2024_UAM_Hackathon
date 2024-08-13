@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class MainManager : MonoBehaviour
@@ -14,9 +15,11 @@ public class MainManager : MonoBehaviour
     public Transform start;
     public Transform destination;
     public Transform UAM;
+    public Transform shadow;
     public Transform current;
+    Transform CreatedUAM;
     public VectorFieldManager vectorFieldManager;
-    public Transform CreatedUAM;
+  
     public Octree octree;
     //if (RightActivate.action.ReadValue<float>() > 0.1f) 
     public int flag = 0;
@@ -78,13 +81,16 @@ public class MainManager : MonoBehaviour
         octree.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         CreatedUAM = Instantiate(UAM, current.position, Quaternion.identity);
+        Instantiate(shadow, current.position, Quaternion.identity);
+        player.parent = CreatedUAM.transform;
+        player.transform.localPosition = new Vector3(0, 2, -4);
+        player.transform.localRotation = Quaternion.Euler(13, 0, 0);
+
         Destroy(current.gameObject);
         current = null;
         vectorFieldManager.CreateVectorField();
        
-        player.parent = CreatedUAM.transform;
-        player.transform.localPosition = new Vector3(0, 2, -4);
-        player.transform.localRotation = Quaternion.Euler(13, 0, 0);
+    
     }
     public IEnumerator StartSet()
     {
@@ -123,7 +129,15 @@ public class MainManager : MonoBehaviour
          else { player.transform.parent = null; }
        
     }
-    
+    private void Update()
+    {
+        //ÃÔ¿µ¿ë
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            VisiableMode();
+        }
+    }
+
 }
 
 

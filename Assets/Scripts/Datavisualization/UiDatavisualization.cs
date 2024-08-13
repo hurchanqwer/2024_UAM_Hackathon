@@ -10,49 +10,34 @@ public class UiDatavisualization : MonoBehaviour
     public TextMeshProUGUI Altitude;
     public TextMeshProUGUI textTime;
 
-    private float movementStartTime;
-    private bool isMoving;
+    public float time;
+    public float currentAltitude;
+
     private Rigidbody rb; // Rigidbody 컴포넌트 참조
 
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트를 가져옴
-        movementStartTime = 0f;
-        isMoving = false;
+
     }
 
     void Update()
     {
-        if (rb != null) // Rigidbody가 존재하는지 확인
-        {
+        
             Vector3 velocity = rb.velocity; // 속도 벡터 가져오기
             double speed = velocity.magnitude*3.6*3; // 속도의 크기(절대값) 계산
             // 속도를 텍스트로 변환하여 UI에 표시
-            textspeed.text = "Speed : " + speed.ToString("F2") + " km/h";
+            textspeed.text = "Wind : " + speed + " km/h";
+    
+        currentAltitude  = transform.position.y - 20;
+        Altitude.text = "Altitude : " + currentAltitude+ "meters";
+
+        time += Time.deltaTime;
+ 
+          int minutes = Mathf.FloorToInt(time / 60f); // 분으로 변환하고 소수점 이하 버리기
+        int sec = Mathf.FloorToInt(time % 60f);
+
+          textTime.text = "Time : " + minutes  + "m " + sec+"s";
         }
-
-        float currentAltitude = transform.position.y-20;// 오브젝트의 y좌표 - 20해서 땅
-
-        Altitude.text = "Altitude : "+currentAltitude.ToString("F2") + "meters";
-
-        if (rb.velocity.magnitude > 0.1f)
-        {
-            if (!isMoving)
-            {
-                movementStartTime += Time.deltaTime;
-                isMoving = true;
-            }
-            float elapsedTime = Time.time - movementStartTime;
-
-            // 경과 시간을 분 단위로 변환
-            int minutes = Mathf.FloorToInt(elapsedTime / 60f); // 분으로 변환하고 소수점 이하 버리기
-
-
-            textTime.text = "Time : " + minutes.ToString() + " minutes";
-        }
-        else if (isMoving)
-        {
-            isMoving = false;
-        }
+    
     }
-}
