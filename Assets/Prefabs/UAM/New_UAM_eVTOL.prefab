@@ -457,7 +457,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 168285765838873296}
-  - component: {fileID: 8019224686663802016}
   m_Layer: 0
   m_Name: New_UAM_eVTOL
   m_TagString: Untagged
@@ -483,27 +482,6 @@ Transform:
   - {fileID: 9119252161553292972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8019224686663802016
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7121326835706317671}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 3df5a1a3441af4e1885f26bccd9f1924, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3b22299d879b5480a99c6505b2219218, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7468113554103392410
 GameObject:
   m_ObjectHideFlags: 0

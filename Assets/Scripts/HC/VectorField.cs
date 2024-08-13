@@ -110,7 +110,7 @@ public class VectorFieldManager : MonoBehaviour
             Debug.LogWarning("Invalid material index or createdVector is empty.");
         }
     }
-    void VectorVisiableMode()
+    public void VectorVisiableMode()
     {
         SystemManager.Instance.isVisiable = !SystemManager.Instance.isVisiable;
         for (int i = 0; i < createdVector.Count; i++)
@@ -118,13 +118,6 @@ public class VectorFieldManager : MonoBehaviour
             createdVector[i].transform.GetChild(0).gameObject.SetActive(SystemManager.Instance.isVisiable);
         }
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            VectorVisiableMode();
-        
-        }
-    }
+ 
     
 }

@@ -162,12 +162,12 @@ public class RobotMovementController : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if (rigidbody != null)
-		{
-			Gizmos.color = Color.blue;
-			Vector3 predictedPosition = rigidbody.position + rigidbody.velocity * Time.deltaTime;
-			Gizmos.DrawWireSphere(predictedPosition, sphereCollider.radius);
-		}
+		//if (rigidbody != null)
+		//{
+		//	Gizmos.color = Color.blue;
+		//	Vector3 predictedPosition = rigidbody.position + rigidbody.velocity * Time.deltaTime;
+		//	Gizmos.DrawWireSphere(predictedPosition, sphereCollider.radius);
+		//}
 
 		if (Path != null)
 		{
