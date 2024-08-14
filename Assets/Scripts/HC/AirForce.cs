@@ -24,5 +24,4 @@ public class AirForce : MonoBehaviour
             rb.AddForce(forceVector * speed, ForceMode.Force);
         }
     }
-
 }
