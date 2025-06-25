@@ -25,7 +25,7 @@ public class VectorFieldManager : MonoBehaviour
 
             ParseCSV(csvFiles[i].text);
         }
-        // 데이터가 제대로 파싱되었는지 콘솔에 출력 (디버깅용)
+
         Debug.Log($"Total Positions: {positions.Count}");
         Debug.Log($"Total Velocities: {velocities.Count}");
         Debug.Log($"Total Speeds: {speeds.Count}");
@@ -51,27 +51,27 @@ public class VectorFieldManager : MonoBehaviour
             {
                 float speed = Mathf.Round(speeds[j]);
 
-                if (j % 2 == 0)// 아이고 벡터 수정하던거 잊으면 안된다 찬아
+                if (j % 2 == 0)
                 {
                     createdVector.Add(Instantiate(arrowPrefab, positions[j], Quaternion.identity, parent.transform));
                     createdVector[createdVector.Count - 1].transform.GetChild(0).rotation = Quaternion.LookRotation(velocities[j]);
                     
-                    // 색상 설정 코드
+                  
                     if (speed > 12)
                     {
-                        SetMaterial(3); // arrowMaterial[3] 설정
+                        SetMaterial(3); // arrowMaterial[3] 
                     }
                     else if (speed > 8)
                     {
-                        SetMaterial(2); // arrowMaterial[2] 설정
+                        SetMaterial(2); // arrowMaterial[2] 
                     }
                     else if (speed > 4)
                     {
-                        SetMaterial(1); // arrowMaterial[1] 설정
+                        SetMaterial(1); // arrowMaterial[1] 
                     }
                     else if (speed > 0)
                     {
-                        SetMaterial(0); // arrowMaterial[0] 설정
+                        SetMaterial(0); // arrowMaterial[0] 
                     }
                 }
             }
@@ -82,23 +82,23 @@ public class VectorFieldManager : MonoBehaviour
     }
     void ParseCSV(string csvText)
     {
-        // 줄바꿈 문자에 대한 더 강력한 처리를 위해 정규 표현식을 사용
+       
         string[] lines = System.Text.RegularExpressions.Regex.Split(csvText, "\r\n|\r|\n");
         int header = 0;
         for (int j = 0; j < lines.Length; j++)
         {
             if (string.IsNullOrWhiteSpace(lines[j])) continue;
 
-            // 헤더를 건너뛰기 위한 체크
+       
             if (header < 2)
             {
                 header++;
                 continue;
             }
 
-            string[] values = lines[j].Split(','); // 탭 구분자로 파싱
+            string[] values = lines[j].Split(','); 
 
-            if (values.Length < 8) continue; // 필요한 열 수가 8개인 경우
+            if (values.Length < 8) continue; 
             // xzy -> xyz
             if (float.TryParse(values[1], out float x) &&
                 float.TryParse(values[3], out float y) &&
